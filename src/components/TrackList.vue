@@ -53,6 +53,13 @@
         $t('contextMenu.copyUrl')
       }}</div>
       <div
+        v-show="type !== 'cloudDisk'"
+        class="item"
+        @click="openInBrowser"
+        >
+        {{ $t('contextMenu.openInBrowser') }}
+      </div>
+      <div
         v-if="extraContextMenuItem.includes('removeTrackFromCloudDisk')"
         class="item"
         @click="removeTrackFromCloudDisk"
@@ -270,6 +277,10 @@ export default {
           this.$parent.removeTrack(trackID);
         });
       }
+    },
+    openInBrowser() {
+      const url = `https://music.163.com/song?id=${this.rightClickedTrack.id}`;
+      window.open(url);
     },
     copyLink() {
       navigator.clipboard.writeText(
